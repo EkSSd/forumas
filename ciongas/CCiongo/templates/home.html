@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <h1>TitulinisPuslapis</h1>
+
+    <ul>
+    {% for post in object_list %}
+        <li><a class="navbar-link" href="{% url 'blog' post.pk %}"><strong><h2>{{ post.title }}</h2></strong></a> by
+        <a href="{% url 'author' post.pk %}">{{ post.author }}</a></li>
+        {{ post.date_created }}<hr>
+    {% endfor %}
+    </ul>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

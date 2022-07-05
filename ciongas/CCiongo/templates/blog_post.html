@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<h1>{{ post.title }}</h1><br>
+<small>By: <a href="{% url 'author' post.pk %}">{{ post.author }}</a></small><br>
+<hr>
+</br>
+{{ post.content }}
+<hr>
+|Tags: {% for i in post.tagas.all %} <a href="{% url 'tagg' i.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
+
+
+
+<div><br><a href="{% url 'home' %}" class="btn btn-dark">home page</a></div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
