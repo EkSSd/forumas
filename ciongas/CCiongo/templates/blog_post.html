@@ -4,11 +4,14 @@
 
 
 
-<h1>{{ post.title }}</h1><br>
-<small>By: <a href="{% url 'author' post.pk %}">{{ post.author }}</a></small><br>
+<br>
+<h1>{{ post.title }} <a href="{% url 'delete' post.pk %}"><button class="btn btn-dark" onclick="return confirm('Are you sure?')">Delete post</button></a></small></h1><br>
+<small>By: <a href="{% url 'author' post.author.id %}">{{ post.author }}</a></small><br>
 <hr>
 </br>
-{{ post.content }}
+<p>{{ post.content }}</p>
+<small><a href="{% url 'update_post' post.pk %}"><button class="btn btn-dark">Edit post</button></a></small>
+
 <hr>
 |Tags: {% for i in post.tagas.all %} <a href="{% url 'tagg' i.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
 

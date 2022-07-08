@@ -1,4 +1,4 @@
-venv/
-db.sqlite3
-secret_settings.py
-__pycache__
+/venv/
+/mysite/db.sqlite3/
+/mysite/secret_settings.py/
+/mysite/__pycache__/

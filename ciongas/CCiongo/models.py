@@ -20,8 +20,7 @@ class Puslapis(models.Model):
     content = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True ,null =True)
 
-    # def display_tag(self):
-    #     return ','.join(tag.name for tag in self.tag.all()[:3])' # cia keiciau ne syky bet taip ir palikau kol sugalvosiu
+    
     def get_absolute_url(self):
         return reverse('blog', args=(str(self.id)))
 

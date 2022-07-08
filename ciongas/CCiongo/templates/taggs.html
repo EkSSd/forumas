@@ -9,7 +9,8 @@
 {% for post in object.posts.all %}
 <hr>
     
-<h3><li><a href="{% url 'blog' post.pk %}">{{ post.title }}</a></h3><h4>other tags: <small class="btn btn-success">{{ object.name }}</small></h4><h5>by {{ post.author }}, posted in {{ post.date_created }}</h5></li>
+<h3><li><a href="{% url 'blog' post.pk %}">{{ post.title }}</a></h3><h4>other tags: <small class="btn btn-success">{{ object.name }}</small>
+</h4><h5>by {{ post.author }}, posted in {{ post.date_created }}</h5></li>
     
 {% endfor %}
 

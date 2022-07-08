@@ -9,9 +9,9 @@
     <br>
     <h1>Authors:</h1>
     {% for a in authors %}
-    <li><a href="{% url 'author' a.id %}">{{a.author}}</a>
-        <a href="{% url 'author' a.id %}" >{{a.title}}</a>
-    </li>
+    <li><strong><a href="{% url 'author' a.pk %}">{{ a.first_name }} {{ a.last_name }}</a></strong>
+        <a href="{% url 'blog' a.id %}" >{{ a.post }}</a></li>
+    <hr>
     {% endfor %}
     </ul>
     <div class="container puslapiai">
@@ -21,7 +21,7 @@
                     {% for i in authors.paginator.page_range %}
                         {% if authors.number == i %}
                             <li class="page-item active">
-                                <a class="page-link" href">{{ i }}</a>
+                                <a class="page-link" href>{{ i }}</a>
                             </li>
                         {% else %}
                             <li class="page-item">
