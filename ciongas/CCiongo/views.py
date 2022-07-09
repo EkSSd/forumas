@@ -16,6 +16,7 @@ from django.http import HttpResponseRedirect
 class HomeView(ListView):
     model = Puslapis
     template_name = 'home.html'
+    ordering = ['-id']
 
 
 class BlogView(DetailView):
