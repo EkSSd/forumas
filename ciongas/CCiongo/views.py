@@ -42,7 +42,7 @@ class UpdatePostView(UpdateView):
     model = Puslapis
     template_name = 'update_post.html'
     success_url = '/'
-    fields = ['title', 'tagas', 'content']
+    fields = ['title', 'tag', 'content']
 
 def delete_post(request,post_id=None):
     post_to_delete=Puslapis.objects.get(id=post_id)

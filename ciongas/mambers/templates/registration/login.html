@@ -4,11 +4,12 @@
 {% block content %}
 <br>
 <h2>Login</h2>
-
-<table>
-<form method="POST">
-    {% csrf_token %}
-    {{ form|crispy }}
-</table>
-<button class="btn btn-dark">Login</button></form>
+<div class="container py-5">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+    <br>
+    <button class="btn btn-dark">Login</button></form>
+    <p class="text-center">Don't have an account? <a href="{% url 'register' %}">Create an account</a>.</p>
+</div>
 {% endblock content %}

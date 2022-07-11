@@ -2,13 +2,15 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<br>
-<h2>Register</h2>
+<div class="'container py-5">
+    <br>
+    <h2>Registration</h2>
 
-<table>
-<form method="POST">
-    {% csrf_token %}
-    {{ form|crispy }}
-</table>
-<button class="btn btn-dark">Register</button></form>
-{% endblock content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ register_form|crispy }}
+    <br>
+    <button class="btn btn-dark">Register</button></form>
+    <p class="text-center">If you already have an account, <a href="{% url 'login' %}">login</a> instead.</p>
+</div>
+    {% endblock content %}
