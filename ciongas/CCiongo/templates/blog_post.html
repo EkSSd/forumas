@@ -15,7 +15,7 @@
     <small><a href="{% url 'update_post' post.pk %}"><button class="btn btn-dark">Edit post</button></a></small>
 {% endif %}
 <hr>
-|Tags: {% for i in post.tagas.all %} <a href="{% url 'tagg' i.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
+|Tags: {% for i in post.tag.all %} <a href="{% url 'tagg' i.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
 
 
 

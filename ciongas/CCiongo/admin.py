@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Puslapis, Tagg, Author
+from .models import Puslapis, Tagg
 
 # Register your models here.
 
@@ -11,4 +11,3 @@ class AuthorAdmin(admin.ModelAdmin):
 
 admin.site.register(Puslapis, PuslapisAdmin)
 admin.site.register(Tagg)
-admin.site.register(Author, AuthorAdmin)

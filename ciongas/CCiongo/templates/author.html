@@ -5,15 +5,11 @@
 {% block content %}
 <br>
     <div class="container author">
-    <h4>{{ author.first_name }} {{ author.last_name }}</h4>
-    <hr/>
-    <p>{{ author.description }}</p>
-    </hr>
     </br>
-    <h5>posts made by "{{ author.first_name }} {{ author.last_name }}":</h5>
+    <h5>posts made by "{{ author }}":</h5>
     <hr/>
-    {% for i in author.post.all %}
-       <li><a href="{% url 'post' i.pk %}">{{ i.title }}</a></li> 
+    {% for i in post.author %}
+       <li><a href="{% url 'post' i.id %}">{{ i.title }}</a></li> 
     {% endfor %}
     </div>
 {% endblock %}

@@ -5,10 +5,23 @@
 <br>
 <h2>Add Post</h2>
 
-<table>
-<form method="POST">
-    {% csrf_token %}
-    {{ form|crispy }}
-</table>
-<button class="btn btn-dark">Post</button></form>
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-6">
+                
+                {{ form.title|as_crispy_field }}
+                {{ form.tag|as_crispy_field }} <a class="btn btn-success" href="{% url 'addtag' %}">Add a tag</a>
+            </div>
+            
+            <div class="col-sm">
+                {{ form.content|as_crispy_field }}
+            </div>
+        </div>
+    
+    </div>
+<button class="btn btn-dark">Post</button>
+</form>
+
 {% endblock content %}

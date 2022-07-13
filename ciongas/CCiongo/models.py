@@ -15,38 +15,22 @@ class Tagg(models.Model):
 
 class Puslapis(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     tag = models.ManyToManyField(Tagg, related_name='posts')
-    content = models.TextField()
+    content = models.TextField(max_length=20000)
     date_created = models.DateTimeField(auto_now_add=True ,null =True)
 
     
     def get_absolute_url(self):
         return reverse('blog', args=(str(self.id)))
+        # return reverse('home')
 
     def __str__(self):
         return self.title + ' by ' + str(self.author)
 
 
 
-class Author(models.Model):
-    """Model representing an author."""
-    first_name = models.CharField('Vardas', max_length=100)
-    last_name = models.CharField('Pavardė', max_length=100)
-    # description = models.TextField('aprasymas', max_length=2000, default='')
-    description = HTMLField()
 
-    # def display_books(self):
-    #     return ', '.join(book.title for book in self.books.all())
-
-    # display_books.short_description = 'books'
-
-    def __str__(self):
-        return f'{self.last_name} {self.first_name}'
-
-    class Meta:
-        verbose_name = 'Author'
-        verbose_name_plural = 'Authors'
 
 
 

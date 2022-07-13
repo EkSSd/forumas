@@ -8,31 +8,14 @@
 <ul>
     <br>
     <h1>Authors:</h1>
-    {% for a in authors %}
-    <li><strong><a href="{% url 'author' a.pk %}">{{ a.first_name }} {{ a.last_name }}</a></strong>
-        <a href="{% url 'blog' a.id %}" >{{ a.post }}</a></li>
+    {% for user in object_list %}
+    <li><strong><a href="{% url 'author' user.pk %}">{{ user.username }}</a></strong></li>
     <hr>
+    {% empty %}
+        <li>No users yet.</li>
     {% endfor %}
     </ul>
-    <div class="container puslapiai">
-        <nav aria-label="...">
-            {% if authors.has_other_pages %}
-                <ul class="pagination pagination-sm justify-content-end">
-                    {% for i in authors.paginator.page_range %}
-                        {% if authors.number == i %}
-                            <li class="page-item active">
-                                <a class="page-link" href>{{ i }}</a>
-                            </li>
-                        {% else %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </nav>
-    </div>
+    
 {% endblock %}
 
 
