@@ -1,17 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
     UpdateView,
+    DeleteView,
         )
 from django.contrib.auth.models import User
-from .models import Puslapis, Tagg
-from django.shortcuts import get_object_or_404, render
+from .models import Puslapis, Tagg 
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm
+from django.views import generic
 
 # Create your views here.
 
@@ -50,7 +51,20 @@ class AddTaggView(CreateView):
     # form_class = PostForm
     template_name = 'add_tag.html'
     fields = '__all__'
+    success_url = reverse_lazy('home')
    
+class DeleteTaggView(DeleteView):
+    model = Tagg
+    fields = '__all__'
+    template_name = "delete_tag.html"
+    success_url = reverse_lazy('home')
+
+class AllTaggView(ListView):
+    model = Tagg
+    template_name = "all_tags.html"
+   
+
+
 
 
 class UpdatePostView(UpdateView):
@@ -66,6 +80,8 @@ def delete_post(request,post_id=None):
     return HttpResponseRedirect('/')
 
 
+
+
 class UserListView(ListView):
     model = User
     template_name = 'authors.html'
@@ -78,8 +94,6 @@ def author(request, author_id):
 #     model = User
 #     template_name = "author.html"
 #     context_object_name = 'author'
-
-
 
 
 

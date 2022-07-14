@@ -10,18 +10,12 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-6">
-                
-                {{ form.title|as_crispy_field }}
                 {{ form.tag|as_crispy_field }} 
-            </div>
-            
-            <div class="col-sm">
-                {{ form.content|as_crispy_field }}
             </div>
         </div>
     
     </div>
-<button class="btn btn-dark">Post</button>
+<button class="btn btn-dark" onclick="return confirm('Are you sure?')">Delete</button>
 </form>
 
 {% endblock content %}

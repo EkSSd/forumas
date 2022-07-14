@@ -11,11 +11,13 @@
 </br>
 <p>{{ post.content }}</p>
 {% if user.is_authenticated %}
-<a href="{% url 'delete' post.pk %}"><button class="btn btn-dark" onclick="return confirm('Are you sure?')">Delete post</button></a></small>
-    <small><a href="{% url 'update_post' post.pk %}"><button class="btn btn-dark">Edit post</button></a></small>
+    {% if user.id == post.author.id %}
+        <a href="{% url 'delete' post.pk %}"><button class="btn btn-dark" onclick="return confirm('Are you sure?')">Delete post</button></a></small>
+        <small><a href="{% url 'update_post' post.pk %}"><button class="btn btn-dark">Edit post</button></a></small>
+    {% endif %}
 {% endif %}
 <hr>
-|Tags: {% for i in post.tag.all %} <a href="{% url 'tagg' i.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
+|Tags: {% for i in post.tag.all %} <a href="{% url 'tagg' post.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
 
 
 

@@ -8,7 +8,7 @@
     <ul>
     {% for post in object_list %}
         <li><a class="navbar-link" href="{% url 'blog' post.pk %}"><strong><h2>{{ post.title }}</h2></strong></a> by
-        <a href="{% url 'author' post.id %}">{{ post.author }}</a>: {% if user.is_authenticated %}<small><a href="{% url 'update_post' post.pk %}"><button class="btn btn-dark">Edit post</button></a></small>{% endif %}</li>
+        <a href="{% url 'author' post.author.pk %}">{{ post.author }}</a>: {% if user.is_authenticated %}{% if user.id == post.author.id %}<small><a href="{% url 'update_post' post.pk %}"><button class="btn btn-dark">Edit post</button></a></small>{% endif %}{% endif %}</li>
         {{ post.date_created }}<hr>
     {% endfor %}
     </ul>

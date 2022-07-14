@@ -11,3 +11,4 @@ class AuthorAdmin(admin.ModelAdmin):
 
 admin.site.register(Puslapis, PuslapisAdmin)
 admin.site.register(Tagg)
+
