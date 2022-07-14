@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 
 # tevinis modelis
@@ -17,7 +18,7 @@ class Puslapis(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     tag = models.ManyToManyField(Tagg, related_name='posts')
-    content = models.TextField(max_length=20000)
+    content = RichTextUploadingField(max_length=20000, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True ,null =True)
 
     

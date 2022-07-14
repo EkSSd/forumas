@@ -9,7 +9,7 @@
 <small>By: <a href="{% url 'author' post.author.id %}">{{ post.author }}</a></small><br>
 <hr>
 </br>
-<p>{{ post.content }}</p>
+<p>{{ post.content|safe }}</p>
 {% if user.is_authenticated %}
     {% if user.id == post.author.id %}
         <a href="{% url 'delete' post.pk %}"><button class="btn btn-dark" onclick="return confirm('Are you sure?')">Delete post</button></a></small>
