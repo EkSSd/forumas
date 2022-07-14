@@ -9,6 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView
 from ciongo_posts.models import Post
+from django.contrib.auth.forms import UserChangeForm
 
 # Create your views here.
 
@@ -54,4 +55,30 @@ class UserProfileView(LoginRequiredMixin, ListView):
 def get_queryset(self):
 	user = self.request.user
 	return Post.objects.filter(author=user)
+
+
+class EditProfileView(generic.UpdateView):
+	form_class = UserChangeForm
+	template_name = 'registration/edit_profile.html'
+	success_url = reverse_lazy('profile')
+
+	def get_object(self):
+		return self.request.user
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

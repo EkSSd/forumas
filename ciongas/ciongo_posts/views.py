@@ -13,7 +13,9 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm
 from django.views import generic
-
+from django.contrib import messages
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -45,7 +47,9 @@ class AddPostView(CreateView):
         form.instance.author = self.request.user
         super().form_valid(form)
         return HttpResponseRedirect('/')
-        
+
+    
+            
 
 class AddTaggView(CreateView):
     model = Tagg
@@ -53,8 +57,17 @@ class AddTaggView(CreateView):
     template_name = 'add_tag.html'
     fields = '__all__'
     success_url = reverse_lazy('home')
-
-
+    
+    # @method_decorator(login_required)
+    # def dispatch(self, request):
+    #     edit = self.get_object()
+    #     if edit and not edit.name == self.request.user:
+    #         messages.error(
+    #             self.request,
+    #             'You are not allowed to access this page'
+    #         )
+    #         return HttpResponseRedirect('/')
+    #     return super(AddTaggView, self).dispatch(request)
 
 class AllTaggView(ListView):
     model = Tagg
@@ -71,13 +84,25 @@ class UpdatePostView(UpdateView):
     success_url = '/'
     # fields = ['title', 'tag', 'content']
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        edit = self.get_object()
+        if edit and not edit.author == self.request.user:
+            messages.error(
+                self.request,
+                'You are not allowed to access this page'
+            )
+            return HttpResponseRedirect('/')
+        return super(UpdatePostView, self).dispatch(request, *args, **kwargs)
+
+@login_required(login_url='/accounts/login/')
 def delete_post(request,post_id=None):
     post_to_delete=Post.objects.get(id=post_id)
     post_to_delete.delete()
     return HttpResponseRedirect('/')
 
-
-def delete(request, tag_id=None):
+@login_required(login_url='/accounts/login/')
+def delete_tag(request, tag_id=None):
     data = Tagg.objects.get( id=tag_id) 
     # remmo_post = Post()
     data.delete()

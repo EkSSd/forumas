@@ -24,5 +24,5 @@ urlpatterns = [
     path('delete/<post_id>',views.delete_post,name='delete'),
     path('addtag/', AddTaggView.as_view(), name = 'addtag'),
     path('all_tags/', AllTaggView.as_view(), name = "all_tags"),
-    path('delete_tag/<int:tag_id>',views.delete,name='delete_tag'),
+    path('delete_tag/<int:tag_id>',views.delete_tag,name='delete_tag'),
 ]
