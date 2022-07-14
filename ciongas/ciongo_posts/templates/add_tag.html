@@ -9,11 +9,23 @@
     <form method="POST">
         {% csrf_token %}
         <div class="row">
-            <div class="col-6">
+            <div class="column">
                 {{ form|crispy }}
             </div>
         </div>
-    </div>
+</div>
     <input type="hidden" name="next" value="{{ request.path }}">
 <button class="btn btn-dark">Add</button></form>
+<div class="row">
+    <br>
+    <div class="column">
+        <h1>Already existing tags:</h1>
+        {% for tag in posts %}
+        <li><strong><a class="btn btn-success" href="">{{ tag.name }}</a></strong></li>
+        <hr>
+        {% empty %}
+            <p>No no tags yet.</p>
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}

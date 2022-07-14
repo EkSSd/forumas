@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from django.urls import reverse
+
 # Create your models here.
 
 # tevinis modelis

@@ -8,7 +8,6 @@ from .views import (
     UpdatePostView,
     AddTaggView,
     UserListView,
-    DeleteTaggView,
     AllTaggView,
   
     )
@@ -24,6 +23,6 @@ urlpatterns = [
     path('article/edit/<int:pk>', UpdatePostView.as_view(), name='update_post'),
     path('delete/<post_id>',views.delete_post,name='delete'),
     path('addtag/', AddTaggView.as_view(), name = 'addtag'),
-    path('delete_tag/', DeleteTaggView.as_view(), name='delete_tag'),
     path('all_tags/', AllTaggView.as_view(), name = "all_tags"),
+    path('delete_tag/<int:tag_id>',views.delete,name='delete_tag'),
 ]

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import (
     ListView,
     DetailView,
@@ -13,6 +13,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm
 from django.views import generic
+
 
 # Create your views here.
 
@@ -48,16 +49,12 @@ class AddPostView(CreateView):
 
 class AddTaggView(CreateView):
     model = Tagg
-    # form_class = PostForm
+    # form_class = TagForm
     template_name = 'add_tag.html'
     fields = '__all__'
     success_url = reverse_lazy('home')
-   
-class DeleteTaggView(DeleteView):
-    model = Tagg
-    fields = '__all__'
-    template_name = "delete_tag.html"
-    success_url = reverse_lazy('home')
+
+
 
 class AllTaggView(ListView):
     model = Tagg
@@ -77,6 +74,13 @@ class UpdatePostView(UpdateView):
 def delete_post(request,post_id=None):
     post_to_delete=Post.objects.get(id=post_id)
     post_to_delete.delete()
+    return HttpResponseRedirect('/')
+
+
+def delete(request, tag_id=None):
+    data = Tagg.objects.get( id=tag_id) 
+    # remmo_post = Post()
+    data.delete()
     return HttpResponseRedirect('/')
 
 

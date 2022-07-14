@@ -4,26 +4,22 @@
 {% block content %}
 
 <div class="user-post-list mt-4">
-    <h4>My Post Lists</h4>
+    <h4>{{ user.username }} profile</h4>
     <div class="table-responsive mt-4 mb-5">
         <table class="table table-hover">
             <thead>
                 <tr class="text-left">
                     <th>TITLE</th>
                     <th>CREATED ON</th>
-                    <th>EDIT</th>
-                    <th>DELETE</th>
                 </tr>
             </thead>
-            {% for post in post_list %}
-            <tbody>
-                <tr>
-                    <td>{{ post.title }} </td>
+            {% for post in author.posts.all %}
+            <body>
+                <tr> 
+                    <td><a href="{% url 'blog' post.pk %}">{{ post.title }}</a></td>
                     <td>{{ post.date_created }}</td>
-                    <td><a class="btn btn-info" href="#" role="button">Edit</a></td>
-                    <td><a class="btn btn-danger" href="#" role="button">Delete</a></td>
-                </tr>
-            </tbody>
+                </tr> 
+            </body>
             {% endfor%}
         </table>
     </div>

@@ -17,7 +17,7 @@
     {% endif %}
 {% endif %}
 <hr>
-|Tags: {% for i in post.tag.all %} <a href="{% url 'tagg' post.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
+|Tags: {% for i in post.tag.all %} <a href="{% url 'tagg' i.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
 
 
 
