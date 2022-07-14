@@ -20,9 +20,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('CCiongo.urls')),
-    path('mambers/',include('django.contrib.auth.urls')),
-    path('mambers/',include('mambers.urls')),
+    path('', include('ciongo_posts.urls')),
+    path('users_profile/',include('django.contrib.auth.urls')),
+    path('users_profile/',include('users_profile.urls')),
     path('tinymce/', include('tinymce.urls')),
         # path('',include('app.urls',namespace='home')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

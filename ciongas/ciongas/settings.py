@@ -32,10 +32,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_rename_app',
     'tinymce',
-    'mambers',
+    'users_profile',
     'crispy_forms',
-    'CCiongo',
+    'ciongo_posts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
