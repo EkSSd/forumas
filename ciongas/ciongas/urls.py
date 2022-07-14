@@ -23,6 +23,6 @@ urlpatterns = [
     path('', include('CCiongo.urls')),
     path('mambers/',include('django.contrib.auth.urls')),
     path('mambers/',include('mambers.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('tinymce/', include('tinymce.urls')),
         # path('',include('app.urls',namespace='home')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

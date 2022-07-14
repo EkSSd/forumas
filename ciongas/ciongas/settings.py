@@ -32,8 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'ckeditor',
-    'ckeditor_uploader',
+    'tinymce',
     'mambers',
     'crispy_forms',
     'CCiongo',

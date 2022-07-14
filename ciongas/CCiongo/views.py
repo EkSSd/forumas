@@ -80,11 +80,10 @@ def delete_post(request,post_id=None):
     return HttpResponseRedirect('/')
 
 
-
-
 class UserListView(ListView):
     model = User
     template_name = 'authors.html'
+
 
 def author(request, author_id):
     single_author = get_object_or_404(User, id=author_id)

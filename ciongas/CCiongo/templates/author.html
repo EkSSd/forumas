@@ -8,8 +8,9 @@
     </br>
     <h5>posts made by "{{ author }}":</h5>
     <hr/>
-    
-    <li><a href="">{{ post.author.title }}</a></li> 
+    {% for post in author.posts.all %}
+    <li><a href="{% url 'blog' post.pk %}">{{ post.title }}</a></li> 
+    {% endfor %}
     
     </div>
 {% endblock %}
