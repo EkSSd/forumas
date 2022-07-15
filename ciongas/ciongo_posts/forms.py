@@ -1,5 +1,5 @@
 from django import forms
-from . models import Post, Tagg
+from . models import Post
 from tinymce.widgets import TinyMCE
 
 

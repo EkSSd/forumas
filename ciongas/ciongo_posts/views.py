@@ -7,7 +7,7 @@ from django.views.generic import (
     DeleteView,
         )
 from django.contrib.auth.models import User
-from .models import Post, Tagg 
+from .models import Post, Tag
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
@@ -16,6 +16,9 @@ from django.views import generic
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
+from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 
@@ -34,14 +37,16 @@ class BlogView(DetailView):
 
 
 class TagView(DetailView):
-    model = Tagg
+    model = Tag
     template_name = 'taggs.html'
 
-class AddPostView(CreateView):
+class AddPostView(LoginRequiredMixin,CreateView):
     model = Post
     form_class = PostForm
     template_name = 'add_post.html'
+    success_url = '/'
     # fields = '__all__'
+
     def form_valid(self, form):
         # Set the form's author to the submitter if the form is valid
         form.instance.author = self.request.user
@@ -52,25 +57,19 @@ class AddPostView(CreateView):
             
 
 class AddTaggView(CreateView):
-    model = Tagg
+    model = Tag
     # form_class = TagForm
     template_name = 'add_tag.html'
     fields = '__all__'
     success_url = reverse_lazy('home')
-    
-    # @method_decorator(login_required)
-    # def dispatch(self, request):
-    #     edit = self.get_object()
-    #     if edit and not edit.name == self.request.user:
-    #         messages.error(
-    #             self.request,
-    #             'You are not allowed to access this page'
-    #         )
-    #         return HttpResponseRedirect('/')
-    #     return super(AddTaggView, self).dispatch(request)
+
+    # def no_duplicates( request):
+    #     for na in Tagg.objects.all():
+    #         if na.name == na.name:
+    #             return HttpResponseRedirect('addtag')
 
 class AllTaggView(ListView):
-    model = Tagg
+    model = Tag
     template_name = "all_tags.html"
    
 
@@ -87,6 +86,8 @@ class UpdatePostView(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         edit = self.get_object()
+        if edit.author != request.user:
+            raise Http404()
         if edit and not edit.author == self.request.user:
             messages.error(
                 self.request,
@@ -95,15 +96,17 @@ class UpdatePostView(UpdateView):
             return HttpResponseRedirect('/')
         return super(UpdatePostView, self).dispatch(request, *args, **kwargs)
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='login')
 def delete_post(request,post_id=None):
-    post_to_delete=Post.objects.get(id=post_id)
+    post_to_delete=get_object_or_404(Post, id=post_id)
+    if post_to_delete.author != request.user:
+        raise Http404()
     post_to_delete.delete()
     return HttpResponseRedirect('/')
 
-@login_required(login_url='/accounts/login/')
+@staff_member_required
 def delete_tag(request, tag_id=None):
-    data = Tagg.objects.get( id=tag_id) 
+    data = Tag.objects.get( id=tag_id) 
     # remmo_post = Post()
     data.delete()
     return HttpResponseRedirect('/')
