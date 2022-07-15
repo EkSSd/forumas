@@ -20,7 +20,7 @@ class Post(models.Model):
     tag = models.ManyToManyField(Tag, related_name='posts')
     content = HTMLField(max_length=20000, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True ,null =True)
-
+    post_image = models.ImageField(null=True, blank=True, upload_to='uploads')
     
     def get_absolute_url(self):
         return reverse('blog', args=(str(self.id)))
@@ -29,11 +29,13 @@ class Post(models.Model):
     def __str__(self):
         return self.title + ' by ' + str(self.author)
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, related_name='comments')
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
 
- 
-
-
-
+    def __str__(self):
+        return '%s - %s' % (self.post.title)
 
 
 

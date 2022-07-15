@@ -14,7 +14,7 @@
     <br>
     <h1>Tags:</h1>
     {% for us in object_list %}
-    <li><strong><a class="btn btn-success" href="{% url 'tagg' us.id %}">{{ us.name }}{% if user.is_staff %}<a class="btn btn-dark" href="{% url 'delete_tag' us.pk %}" onclick="return confirm('Are you sure?')">Delete tag</a>{% endif %}</a></strong></li>
+    <li><strong><a class="btn btn-success" href="{% url 'tag' us.id %}">{{ us.name }}{% if user.is_staff %}<a class="btn btn-dark" href="{% url 'delete_tag' us.pk %}" onclick="return confirm('Are you sure?')">Delete tag</a>{% endif %}</a></strong></li>
     <hr>
     {% empty %}
         <li>No no tags yet.</li>

@@ -6,20 +6,23 @@
 <h2>update Post</h2>
 <br>
 <div class="form-group">
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="row">
         <div class="col-6">
+            title
             {{ form.title }}
-            {{ form.tag }}
+            <br>
+            tag
+            {{ form.tag }} 
+            {{ form.post_image }}
         </div>
-        
         <div class="col-sm">
+            content
             {{ form.content }}
         </div>
     </div>
-
+    <button class="btn btn-dark" type="submit">Update</button>
+    </form>
 </div>
-<button class="btn btn-dark" type="submit">Update</button>
-</form>
 {% endblock content %}

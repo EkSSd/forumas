@@ -2,14 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse_lazy
-from .forms import NewUserForm
+from .forms import NewUserForm, EditProfileForm, PasswordEditForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, ListView
+from django.views.generic import ListView
 from ciongo_posts.models import Post
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.views import PasswordChangeView
 
 # Create your views here.
 
@@ -46,11 +46,10 @@ def login_request(request):
 	return render(request=request, template_name="registration/login.html", context={"login_form":form})
 
 
-
-
 class UserProfileView(LoginRequiredMixin, ListView):
      queryset = Post.objects.all()
      template_name = "profile.html"
+
 
 def get_queryset(self):
 	user = self.request.user
@@ -58,14 +57,16 @@ def get_queryset(self):
 
 
 class EditProfileView(generic.UpdateView):
-	form_class = UserChangeForm
+	form_class = EditProfileForm
 	template_name = 'registration/edit_profile.html'
 	success_url = reverse_lazy('profile')
 
 	def get_object(self):
 		return self.request.user
 
-
+class PasswordsEditView(PasswordChangeView):
+	form_class = PasswordEditForm
+	success_url = reverse_lazy('profile')
 
 
 

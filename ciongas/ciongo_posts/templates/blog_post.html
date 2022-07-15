@@ -9,6 +9,11 @@
 <small>By: <a href="{% url 'author' post.author.id %}">{{ post.author }}</a></small><br>
 <hr>
 </br>
+<div>
+    {% if post.post_image %}
+      <img src="{{ post.post_image.url }}" style="margin-bottom: 20px;">
+    {% endif %}
+  </div>
 <p>{{ post.content|safe }}</p>
 {% if user.is_authenticated %}
     {% if user.id == post.author.id %}
@@ -17,7 +22,7 @@
     {% endif %}
 {% endif %}
 <hr>
-|Tags: {% for i in post.tag.all %} <a href="{% url 'tagg' i.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
+|Tags: {% for i in post.tag.all %} <a href="{% url 'tag' i.pk %}" class="btn btn-success">{{ i.name }}</a> {% endfor %}<br>
 
 
 
