@@ -11,7 +11,7 @@ from .models import Post, Tag
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from .forms import PostForm, EditForm
+from .forms import PostForm, EditForm, CommentForm
 from django.views import generic
 from django.contrib import messages
 from django.utils.decorators import method_decorator
@@ -30,10 +30,29 @@ class HomeView(ListView):
     
 
 
-class BlogView(DetailView):
+class BlogView(generic.edit.FormMixin, generic.DetailView):
     model = Post
     template_name = "blog_post.html"
     context_object_name = 'post'
+    form_class = CommentForm
+
+
+    def get_success_url(self):
+        return reverse_lazy('blog', kwargs={'pk': self.object.id})
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.instance.post = self.object
+        form.instance.user = self.request.user
+        form.save()
+        return super().form_valid(form)
+
 
 
 class TagView(DetailView):

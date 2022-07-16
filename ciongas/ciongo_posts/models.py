@@ -30,12 +30,13 @@ class Post(models.Model):
         return self.title + ' by ' + str(self.author)
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, related_name='comments')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='commenter')
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '%s - %s' % (self.post.title)
+        return '%s - %s' % (self.post.title , self.user)
 
 
 

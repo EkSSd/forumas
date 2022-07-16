@@ -27,6 +27,35 @@
 
 
 <div><br><a href="{% url 'home' %}" class="btn btn-dark">home page</a></div>
+<br><br>
+<h2>Comments...</h2>
+<hr/>
+{% if user.is_authenticated %}
+  <div class="fieldwrapper">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.body }}<br>
+      <button type="submit" class="btn btn-primary">Submit a comment</button>
+    </form>
+  </div>
+{% endif %}
+{% if not post.comments.all %}
+    No comments yet...<a href="#">
+    Add one</a>
+{% else %}
+    {% for comment in post.comments.all %}
+    <ul>
+      <strong>
+        By {{ comment.user }} -
+        {{ comment.date_added }}
+      </strong>
+      <br/>
+      {{ comment.body }}
+    </ul>
+
+    {% endfor %}
+{% endif %}
+<hr>
 
 {% endblock %}
 

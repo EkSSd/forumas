@@ -1,5 +1,5 @@
 from django import forms
-from . models import Post
+from . models import Post, Comment
 from tinymce.widgets import TinyMCE
 
 
@@ -34,4 +34,15 @@ class EditForm(forms.ModelForm):
             'content': TinyMCE(),
             
 
+        }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('user', 'body')
+        exclude = ['user']
+        widgets = {
+            # 'user' : forms.HiddenInput(),
+            'body' : forms.TextInput(attrs={'class':'form-control'}),
         }
