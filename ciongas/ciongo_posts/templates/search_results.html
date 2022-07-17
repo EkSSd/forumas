@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+<br><br>
+
+
+{% csrf_token %}
+{% block content %}
+<ul>
+    <br>
+        
+    {% if search %}
+        <h3>Search results for:{{ search }}</h3>   
+        <ul>
+            {% csrf_token %}
+            {% for post in object_list %}
+                <li><a class="navbar-link" href="{% url 'blog' post.pk %}"><strong><h2>{{ post.title }}</h2></strong></a> by
+                <a href="{% url 'author' post.author.pk %}">{{ post.author }}</a>: {% if user.is_authenticated %}{% if user.id == post.author.id %}<small><a href="{% url 'update_post' post.pk %}"><button class="btn btn-dark">Edit post</button></a></small>{% endif %}{% endif %}</li>
+                {{ post.date_created }}<hr>
+            {% endfor %}
+            </ul>
+    {% else %}
+        <h3>Nothing was typed</h3>
+    {% endif %}
+    
+</ul>
+    
+{% endblock %}

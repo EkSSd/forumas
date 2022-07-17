@@ -47,9 +47,8 @@
                     {% endif %}
                   </div>
                 </li>
-                
               </ul>
-              <form class="form-inline my-2 my-lg-0">
+              <div class="form-inline my-2 my-lg-0">
                 {% if user.is_authenticated %}
                 <div>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -58,10 +57,12 @@
                   <a class="navbar-brand" href="{% url 'profile' %}">{{ user.username }} profile</a>
                 </div>
                 {% endif %}
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                
+                <form action="{% url 'search' %}" method="post">{% csrf_token %}
+                <input class="form-control mr-sm-2" name="search" value="{{ search }}" type="search" placeholder="Search" aria-label="Search" />
+                  <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="test"/></form>
                   {% if user.is_authenticated %}
-                    <form class="form-inline my-2 my-lg-0">
+                    <form class="form-inline my-2  mx-2 my-lg-0">
                       <a href="{% url 'logout' %}" tabindex="1" class="btn btn-outline-light" type="submit">Logout</a>
                     </form>
                   {% else %}
@@ -72,7 +73,7 @@
                       </form>
                     </div>
                   {% endif %}
-              </form>
+              </div>
               
             </div>
           </div>

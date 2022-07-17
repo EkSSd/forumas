@@ -10,11 +10,13 @@ from .views import (
     AddTaggView,
     UserListView,
     AllTaggView,
+    
   
     )
 
 urlpatterns = [
     # path('/', views.home, name = 'blog-home'),
+    
     path('', HomeView.as_view(), name="home"),
     path('authors/',UserListView.as_view(), name='authors'),
     path('authors/<int:author_id>', views.author, name = 'author'),
@@ -25,5 +27,7 @@ urlpatterns = [
     path('delete/<post_id>',views.delete_post,name='delete'),
     path('addtag/', staff_member_required(AddTaggView.as_view()), name = 'addtag'),
     path('all_tags/', AllTaggView.as_view(), name = "all_tags"),
-    path('delete_tag/<int:tag_id>',views.delete_tag,name='delete_tag'),
+    path('delete_tag/<int:tag_id>',views.delete_tag, name='delete_tag'),
+    path('search/',views.searchView, name='search'),
+
 ]

@@ -17,8 +17,10 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
+from django.template import loader
+from django.db.models import Q
 
 # Create your views here.
 
@@ -26,6 +28,17 @@ class HomeView(ListView):
     model = Post
     template_name = 'home.html'
     ordering = ['-id']
+
+    # def post(self, request):
+   
+    #     mydata = Post.objects.filter(title__icontains=request.POST.get("search"))
+    #     template = loader.get_template('home.html')
+    #     context = {
+    #         'object_list': mydata,
+    #     }
+    #     return HttpResponse(template.render(context, request))
+
+    
 
     
 
@@ -139,6 +152,18 @@ class UserListView(ListView):
 def author(request, author_id):
     single_author = get_object_or_404(User, id=author_id)
     return render(request, 'author.html',context= {'author': single_author})
+
+
+def searchView( request):
+    query = request.POST.get("search")
+    mydata = Post.objects.filter(Q(title__icontains = query) | Q(author__username__icontains=query) | Q(tag__name__icontains=query))
+    template = loader.get_template('search_results.html')
+    context = {
+        'object_list': mydata,
+        "search":query
+    }
+    return HttpResponse(template.render(context, request))
+
 
 # class AuthorView(DetailView):
 #     model = User
