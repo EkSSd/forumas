@@ -15,14 +15,21 @@
                     <th>CREATED ON</th>
                 </tr>
             </thead>
-            {% for user in author.posts.all %}
+            
+            {% for us in object_list %}
+         
             <body>
+                {{ us }}
+                {% if user.id == us.author.id %}
+
                 <tr> 
-                    <td><a href="{% url 'blog' user.pk %}">{{ user.title }}</a></td>
-                    <td>{{ user.date_created }}</td>
+                    <td><a href="{% url 'blog' us.pk %}">{{ us.title }}</a></td>
+                    <td>{{ us.date_created }}</td>
                 </tr> 
             </body>
+            {% endif %}
             {% endfor%}
+            
         </table>
     </div>
 </div>
