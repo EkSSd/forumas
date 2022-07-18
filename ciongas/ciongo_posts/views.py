@@ -4,11 +4,9 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView,
         )
 from django.contrib.auth.models import User
 from .models import Post, Tag
-from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm, CommentForm
@@ -29,26 +27,12 @@ class HomeView(ListView):
     template_name = 'home.html'
     ordering = ['-id']
 
-    # def post(self, request):
-   
-    #     mydata = Post.objects.filter(title__icontains=request.POST.get("search"))
-    #     template = loader.get_template('home.html')
-    #     context = {
-    #         'object_list': mydata,
-    #     }
-    #     return HttpResponse(template.render(context, request))
-
-    
-
-    
-
 
 class BlogView(generic.edit.FormMixin, generic.DetailView):
     model = Post
     template_name = "blog_post.html"
     context_object_name = 'post'
     form_class = CommentForm
-
 
     def get_success_url(self):
         return reverse_lazy('blog', kwargs={'pk': self.object.id})
@@ -67,7 +51,6 @@ class BlogView(generic.edit.FormMixin, generic.DetailView):
         return super().form_valid(form)
 
 
-
 class TagView(DetailView):
     model = Tag
     template_name = 'taggs.html'
@@ -77,7 +60,6 @@ class AddPostView(LoginRequiredMixin,CreateView):
     form_class = PostForm
     template_name = 'add_post.html'
     success_url = '/'
-    # fields = '__all__'
 
     def form_valid(self, form):
         # Set the form's author to the submitter if the form is valid
@@ -86,34 +68,23 @@ class AddPostView(LoginRequiredMixin,CreateView):
         return HttpResponseRedirect('/')
 
     
-            
-
 class AddTaggView(CreateView):
     model = Tag
-    # form_class = TagForm
     template_name = 'add_tag.html'
     fields = '__all__'
     success_url = reverse_lazy('home')
 
-    # def no_duplicates( request):
-    #     for na in Tagg.objects.all():
-    #         if na.name == na.name:
-    #             return HttpResponseRedirect('addtag')
 
 class AllTaggView(ListView):
     model = Tag
     template_name = "all_tags.html"
    
 
-
-
-
 class UpdatePostView(UpdateView):
     model = Post
     form_class = EditForm
     template_name = 'update_post.html'
     success_url = '/'
-    # fields = ['title', 'tag', 'content']
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -128,6 +99,7 @@ class UpdatePostView(UpdateView):
             return HttpResponseRedirect('/')
         return super(UpdatePostView, self).dispatch(request, *args, **kwargs)
 
+
 @login_required(login_url='login')
 def delete_post(request,post_id=None):
     post_to_delete=get_object_or_404(Post, id=post_id)
@@ -135,6 +107,7 @@ def delete_post(request,post_id=None):
         raise Http404()
     post_to_delete.delete()
     return HttpResponseRedirect('/')
+
 
 @staff_member_required
 def delete_tag(request, tag_id=None):
@@ -165,10 +138,6 @@ def searchView( request):
     return HttpResponse(template.render(context, request))
 
 
-# class AuthorView(DetailView):
-#     model = User
-#     template_name = "author.html"
-#     context_object_name = 'author'
 
 
 

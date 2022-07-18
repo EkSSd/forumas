@@ -8,7 +8,7 @@
     <br>
         
     {% if search %}
-        <h3>Search results for:{{ search }}</h3>   
+        <h3>Search results for: {{ search }}</h3>   
         <ul>
             {% csrf_token %}
             {% for post in object_list %}

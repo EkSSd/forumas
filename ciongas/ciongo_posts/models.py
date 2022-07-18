@@ -5,7 +5,6 @@ from django.urls import reverse
 
 # Create your models here.
 
-# tevinis modelis
 
 class Tag(models.Model):
     name = models.CharField('tag', max_length=100, unique=True)
@@ -13,11 +12,10 @@ class Tag(models.Model):
             return self.name
 
 
-
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='posts')
-    tag = models.ManyToManyField(Tag, related_name='posts')
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='n_authors')
+    tag = models.ManyToManyField(Tag, related_name='n_tags')
     content = HTMLField(max_length=20000, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True ,null =True)
     post_image = models.ImageField(null=True, blank=True, upload_to='uploads')
@@ -28,6 +26,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title + ' by ' + str(self.author)
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')

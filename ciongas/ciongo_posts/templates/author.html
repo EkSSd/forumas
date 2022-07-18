@@ -15,7 +15,7 @@
                     <th>CREATED ON</th>
                 </tr>
             </thead>
-            {% for post in author.posts.all %}
+            {% for post in author.n_authors.all %}
             <body>
                 <tr> 
                     <td><a href="{% url 'blog' post.pk %}">{{ post.title }}</a></td>
