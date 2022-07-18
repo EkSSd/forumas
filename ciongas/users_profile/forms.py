@@ -53,7 +53,7 @@ class EditProfileForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password', 'last_login', 'date_joined') 
+        fields = ('username', 'first_name', 'last_name', 'email', 'last_login', 'date_joined') 
 
 
 class PasswordEditForm(PasswordChangeForm):

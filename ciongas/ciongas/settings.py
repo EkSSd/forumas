@@ -146,6 +146,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACE = 'bootstrap4'
 
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp-relay.sendinblue.com'
+EMAIL_PORT = 587
+EMAIL_USE_TSL = True
+EMAIL_HOST_USER = 'variklis52@gmail.com'
+EMAIL_HOST_PASSWORD = 'nHRE48cg01IVPmkG'
+# EMAIL_FILE_PATH = BASE_DIR / "emails"
 
 
 

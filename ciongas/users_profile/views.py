@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from django.urls import reverse_lazy
@@ -6,12 +6,17 @@ from .forms import NewUserForm, EditProfileForm, PasswordEditForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
 from ciongo_posts.models import Post
 from django.contrib.auth.views import PasswordChangeView
 from django.template import loader
-
+from django.contrib.auth.forms import PasswordResetForm
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib.auth.models import User
+from django.template.loader import render_to_string
+from django.db.models.query_utils import Q
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 # Create your views here.
 
 
@@ -81,7 +86,36 @@ class PasswordsEditView(PasswordChangeView):
 	success_url = reverse_lazy('profile')
 
 
+# def password_reset_request(request):
+# 	if request.method == 'POST':
+# 		password_form = PasswordResetForm(request.POST)
+# 		data = password_form.cleaned_data.get('email')
+# 		user_email = User.objects.filter(Q(email=data))
+# 		if user_email.exists():
+# 			for user in user_email:
+# 				subject = 'Password Requests'
+# 				email_template_name = 'password_message.txt'
+# 				parameters = {
+# 					'email': user.email,
+# 					'domain': 'localhost:8000',
+# 					'site_name': 'ChibridSite',
+# 					'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+# 					'token': default_token_generator.make_token(user),
+# 					'protocol': 'http',
+# 				}
+# 				email = render_to_string(email_template_name, parameters)
+# 				try:
+# 					send_mail(subject, email, '', [user.email], fail_silently=False,)
+# 				except:
+# 					return HttpResponse('Invalid header')
+# 				return redirect('password_reset_done')
+# 	else:
+# 		password_form = PasswordResetForm()
+# 	context = {
+# 		'password_form': password_form,
 
+# 	}
+# 	return render(request, 'registration/password_reset.html', context)
 
 
 
